@@ -7,11 +7,17 @@ import 'package:for_network/src/domain/network/server_error.dart';
 import '../../data/models/post_user_request.dart';
 
 class AddUserRepository {
+  const AddUserRepository({
+    required this.apiClient,
+  });
+
+  final ApiClient apiClient;
+
   Future<GetOneUserResponse> addOneUser(
       {required PostUserRequest postUserRequest}) async {
     dynamic response;
     try {
-      response = ApiClient.getInstance().postUser(postUserRequest);
+      response = apiClient.postUser(postUserRequest);
     } on TypeError {
       debugPrint('type error');
       // ignore: avoid_catching_errors

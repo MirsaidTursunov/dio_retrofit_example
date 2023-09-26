@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:for_network/src/injector_container.dart';
 import 'package:for_network/src/presentation/bloc/add_user/add_user_bloc.dart';
 import 'package:for_network/src/presentation/bloc/home/home_bloc.dart';
 import 'package:for_network/src/presentation/pages/internet_connection/internet_connection_page.dart';
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return BlocProvider(
-                  create: (context) => AddUserBloc(),
+                  create: (context) => sl<AddUserBloc>(),
                   child: const NewUserPage(),
                 );
               }));

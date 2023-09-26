@@ -9,18 +9,20 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(const HomeState()) {
+  HomeBloc({
+    required this.homeRepository,
+  }) : super(const HomeState()) {
     on<GetUsersEvent>(_getUsers);
   }
 
-  final _homeRepository = HomeRepository();
+  final HomeRepository homeRepository;
 
   Future<void> _getUsers(GetUsersEvent event,
       Emitter<HomeState> emit) async {
     emit(state.copyWith(
       getStatus: GetUsersStatus.loading,
     ));
-    final result = await _homeRepository.getAllObjects();
+    final result = await homeRepository.getAllObjects();
 
     emit(state.copyWith(
       usersList: result,

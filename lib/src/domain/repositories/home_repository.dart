@@ -4,12 +4,15 @@ import 'package:for_network/src/data/models/get_user_response.dart';
 import 'package:for_network/src/domain/network/server_error.dart';
 import 'package:for_network/src/domain/network/api_client.dart';
 
-class HomeRepository{
+class HomeRepository {
+  const HomeRepository({required this.apiClient});
+
+  final ApiClient apiClient;
+
   Future<GetUsersResponse> getAllObjects() async {
     dynamic response;
     try {
-      response = ApiClient.getInstance(
-       ).getUsers();
+      response = apiClient.getUsers();
     } on TypeError {
       debugPrint('type error');
       // ignore: avoid_catching_errors
@@ -18,7 +21,9 @@ class HomeRepository{
       // ignore: avoid_catches_without_on_clauses
     } catch (error, stacktrace) {
       debugPrint('Exception occurred: $error stacktrace: $stacktrace');
-      final exception = ServerError.withDioError(error: error as DioException, );
+      final exception = ServerError.withDioError(
+        error: error as DioException,
+      );
     }
     return response;
   }

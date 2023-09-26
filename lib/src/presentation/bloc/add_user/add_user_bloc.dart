@@ -12,15 +12,15 @@ part 'add_user_event.dart';
 part 'add_user_state.dart';
 
 class AddUserBloc extends Bloc<AddUserEvent, AddUserState> {
-  AddUserBloc() : super(const AddUserState()) {
+  AddUserBloc({required this.addRepository}) : super(const AddUserState()) {
     on<AddOneUserEvent>(_addUser);
   }
 
-  final _addRepository = AddUserRepository();
+  final  AddUserRepository addRepository;
 
   Future<void> _addUser(
       AddOneUserEvent event, Emitter<AddUserState> emit) async {
-    final result = await _addRepository.addOneUser(
+    final result = await addRepository.addOneUser(
       postUserRequest: PostUserRequest(
         name: event.name,
         job: event.job,
